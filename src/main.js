@@ -4,12 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 
 $(document).ready(function() {
- $('#weatherLocation').click(function() {
-   let city = $('#location').val();
-   $('#location').val("");
+ $('#cocktailName').click(function() {
+   let drink = $('#name').val();
+   $('#name').val("");
 
    let request = new XMLHttpRequest();
-   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
+
+   let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
 
    request.onreadystatechange = function() {
      if (this.readyState === 4 && this.status === 200) {
@@ -22,8 +23,10 @@ $(document).ready(function() {
    request.send();
 
    let getElements = function(response) {
-     $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
-     $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
+     console.log(drink);
+
+     $('.drinkName').text(`The liquor in ${drink} is ${response.drinks[1].strDrink}`);
+    //  $('.glass').text(`Use this glass ${drink} is ${response.drinks[2].strGlass`);
    }
  });
 });
